@@ -1,0 +1,32 @@
+CREATE OR REPLACE PACKAGE PKG_AGENDA_HEMODIALISE AS
+
+    -- <<== NOVA PROCEDURE "ON-DEMAND" PARA NOVOS PACIENTES ==>>
+    PROCEDURE PRC_INICIA_AGENDA_PAC_NOVO (
+        P_CD_PACIENTE IN PACIENTE.CD_PACIENTE%TYPE
+    );
+
+    -- Cria o atendimento-pai do mês para UM paciente
+    PROCEDURE PRC_CRIA_ATENDIMENTO_PAI_MES (
+        P_CD_PACIENTE             IN  PACIENTE.CD_PACIENTE%TYPE,
+        P_DT_REFERENCIA           IN  DATE,
+        P_CD_ATENDIMENTO_GERADO   OUT ATENDIME.CD_ATENDIMENTO%TYPE,
+        P_MENSAGEM_ERRO           OUT VARCHAR2
+    );
+
+    -- Cria as sessões para UM atendimento-pai
+    PROCEDURE PRC_GERA_SESSOES_AGENDADAS (
+        P_CD_ATENDIMENTO_PAI  IN ATENDIME.CD_ATENDIMENTO%TYPE,
+        P_DT_INICIO           IN DATE,
+        P_DT_FIM              IN DATE,
+        P_DT_VALIDACAO        IN DATE
+    );
+
+    -- Procedure "MESTRE" para o JOB mensal
+    PROCEDURE PRC_AUTOMATIZA_GERACAO_MENSAL;
+
+    -- Procedure para criar os atendimentos-filhos
+    PROCEDURE PRC_CRIA_ATD_FILHO_SESSAO (
+        P_DATA_ALVO_TESTE IN DATE DEFAULT NULL
+    );
+
+END PKG_AGENDA_HEMODIALISE;

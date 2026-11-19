@@ -1,0 +1,257 @@
+/* ==========================================================================
+   TOKENS OFICIAIS DE IMPLEMENTAÇÃO (Manual FastPass v3.0 — Capítulos 04, 05, 06, 45 e Anexo A v1.1)
+   ========================================================================== */
+:root {
+  --brand: #40baab;
+  --ink: #202020;
+
+  /* Anexo A (tokens.css) — Camada 1: Paleta Funcional de Ação (1–10) */
+  --ds-bg-base: #141414;
+  --ds-surface-card: #1E1E1E;
+  --ds-border-subtle: #2C2C2C;
+
+  --ds-primary: #2563EB;
+  --ds-primary-hover: #3B82F6;
+  --ds-primary-text: #FFFFFF;
+
+  --ds-success: #047857;
+  --ds-success-hover: #059669;
+  --ds-success-text: #FFFFFF;
+
+  --ds-progress: #15803D;
+  --ds-progress-hover: #16A34A;
+  --ds-progress-text: #FFFFFF;
+
+  --ds-info-tech: #0E7490;
+  --ds-info-tech-hover: #0891B2;
+  --ds-info-tech-text: #FFFFFF;
+
+  --ds-warning: #D97706;
+  --ds-warning-hover: #F59E0B;
+  --ds-warning-text: #0F172A;
+
+  --ds-urgent: #EA580C;
+  --ds-urgent-hover: #F97316;
+  --ds-urgent-text: #0F172A;
+
+  --ds-danger: #DC2626;
+  --ds-danger-hover: #EF4444;
+  --ds-danger-text: #FFFFFF;
+
+  --ds-soft-danger: #E11D48;
+  --ds-soft-danger-hover: #F43F5E;
+  --ds-soft-danger-text: #FFFFFF;
+
+  --ds-ai-accent: #7C3AED;
+  --ds-ai-accent-hover: #8B5CF6;
+  --ds-ai-accent-text: #FFFFFF;
+
+  --ds-neutral: #475569;
+  --ds-neutral-hover: #64748B;
+  --ds-neutral-text: #FFFFFF;
+
+  /* Anexo A — Camada 2: Paleta Categórica & Emocional (11–16 — Gráficos, Tags e Setores) */
+  --ds-cat-magenta: #DB2777;
+  --ds-cat-magenta-soft: rgba(219, 39, 119, 0.15);
+  --ds-cat-teal: #0D9488;
+  --ds-cat-teal-soft: rgba(13, 148, 136, 0.15);
+  --ds-cat-lavender: #A855F7;
+  --ds-cat-lavender-soft: rgba(168, 85, 247, 0.15);
+  --ds-cat-solar: #EAB308;
+  --ds-cat-solar-soft: rgba(234, 179, 8, 0.15);
+  --ds-cat-bronze: #B45309;
+  --ds-cat-bronze-soft: rgba(180, 83, 9, 0.15);
+  --ds-cat-silver: #F8FAFC;
+  --ds-cat-silver-soft: rgba(248, 250, 252, 0.12);
+
+  /* Capítulo 45 — Tokens do Tema Claro (Default Light) */
+  --fp-bg: #F2F2F2;
+  --fp-sidebar: #FFFFFF;
+  --fp-panel: #FFFFFF;
+  --fp-field: #F4F5F6;
+  --fp-text: #202020;
+  --fp-text-secondary: #606060;
+  --fp-border: #D8DDE3;
+  --fp-divider: #E3E6EA;
+  --fp-active-neutral: #E8EDF1;
+  --fp-link-icon: #1E6090;
+  --fp-selection: #276C4D;
+  --fp-confirm-bg: #EAF6EF;
+  --fp-confirm-text: #205638;
+  --fp-warning: #936100;
+  --fp-error-exit: #B42338;
+  --fp-card-total-accent: #16834A;
+}
+
+/* Capítulo 45 — Tokens do Tema Escuro */
+.app-shell[data-theme="dark"] {
+  --fp-bg: #181818;
+  --fp-sidebar: #1B1B1B;
+  --fp-panel: #242424;
+  --fp-field: #303030;
+  --fp-text: #EDEDED;
+  --fp-text-secondary: #B7B7B7;
+  --fp-border: #4B4B4B;
+  --fp-divider: #363636;
+  --fp-active-neutral: #363636;
+  --fp-link-icon: #83B8E4;
+  --fp-selection: #6BC196;
+  --fp-confirm-bg: #202F26;
+  --fp-confirm-text: #9DD5B5;
+  --fp-warning: #EDC66A;
+  --fp-error-exit: #E68591;
+  --fp-card-total-accent: #10B981;
+}
+
+/* Capítulo 45 — Tokens do Tema Baleia (Superfícies azuis institucionais, sem foto ou vídeo no painel) */
+.app-shell[data-theme="baleia"] {
+  --fp-bg: #101B2B;
+  --fp-sidebar: #0E1B2B;
+  --fp-panel: #17283B;
+  --fp-field: #1D3248;
+  --fp-text: #E7EFF8;
+  --fp-text-secondary: #B1C3D5;
+  --fp-border: #3C536A;
+  --fp-divider: #2C4157;
+  --fp-active-neutral: #243D54;
+  --fp-link-icon: #83B8E4;
+  --fp-selection: #6BC196;
+  --fp-confirm-bg: #163B34;
+  --fp-confirm-text: #9DD5B5;
+  --fp-warning: #EDC66A;
+  --fp-error-exit: #E68591;
+  --fp-card-total-accent: #10B981;
+}
+
+body {
+  margin: 0;
+  color: var(--fp-text);
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Capítulo 45: Nenhum painel autenticado recebe a foto ou o vídeo da baleia por força do tema */
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  background: var(--fp-bg);
+  color: var(--fp-text);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.app-shell::before {
+  display: none !important;
+}
+
+.site-header {
+  min-height: 76px;
+  padding: 10px 24px;
+  background: var(--fp-panel);
+  color: var(--fp-text);
+  border-bottom: 1px solid var(--fp-divider);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: none;
+}
+
+.hospital-logo {
+  width: auto;
+  max-width: 120px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hospital-logo img {
+  position: static;
+  width: auto;
+  height: 100%;
+  max-height: 52px;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-brand h1 {
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--fp-text);
+  margin: 0;
+}
+
+.site-brand h1 span {
+  color: var(--fp-link-icon);
+}
+
+.site-brand p {
+  font-size: 11.5px;
+  color: var(--fp-text-secondary);
+  margin: 2px 0 0;
+}
+
+.header-account {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 13px;
+}
+
+.header-account small {
+  font-size: 11px;
+  color: var(--fp-text-secondary);
+}
+
+.table-heading,
+.app-shell thead {
+  background: var(--fp-field);
+  color: var(--fp-text);
+  border-bottom: 1px solid var(--fp-border);
+}
+
+.app-shell .container {
+  max-width: 1480px;
+}
+
+.app-shell form {
+  background: var(--fp-panel);
+  color: var(--fp-text);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--fp-border);
+}
+
+.demo-button {
+  margin-top: 16px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #238476;
+  border-radius: 8px;
+  color: #17675d;
+  font-weight: 700;
+  background: #eefaf7;
+}
+
+.demo-button:hover {
+  background: #d8f3ed;
+}
+
+.demo-description {
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 12px;
+}

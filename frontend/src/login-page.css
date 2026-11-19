@@ -1,0 +1,459 @@
+* { box-sizing: border-box; }
+body { font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+/* ==========================================================================
+   Capítulo 03, 35, 45, 46 e 68: Login Institucional FastPass v3.0
+   Design System Full Clean · Hospital de Referência Modelo · NefroSmart Hemodiálise
+   ========================================================================== */
+
+.login-page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  color: #f1f5f9;
+  background-color: #030712;
+  isolation: isolate;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Vídeo de Fundo Animado Baleia (remove fundo azul estático) */
+.login-bg-video-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.login-bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.login-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.40);
+  pointer-events: none;
+}
+
+.login-topbar,
+.login-page .login-wrapper,
+.login-page-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sem marca d'água pesada com textos vazados */
+.login-page::before {
+  display: none !important;
+}
+
+/* ==========================================================================
+   BARRA SUPERIOR INSTITUCIONAL (Discreta, sem caixa verde pesada)
+   ========================================================================== */
+.login-topbar {
+  min-height: 76px;
+  padding: 12px 4%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  background: rgba(10, 21, 35, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.login-topbar .hospital-logo {
+  width: auto;
+  max-width: 130px;
+  height: 50px;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.login-topbar .hospital-logo img {
+  position: static !important;
+  width: auto !important;
+  height: 100% !important;
+  max-height: 50px !important;
+  max-width: 130px !important;
+  object-fit: contain !important;
+  display: block !important;
+  mix-blend-mode: normal !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+}
+
+.login-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.login-brand span {
+  color: #ffffff;
+}
+
+.login-brand .brand-smart {
+  color: #40baab;
+}
+
+.login-nefro-shield {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(37, 99, 235, 0.35));
+}
+
+.login-topbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.login-module-tag {
+  text-align: right;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.login-baleia-ia-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: auto;
+  max-width: 96px;
+  padding: 3px 6px;
+  border-radius: 8px;
+  background: rgba(16, 39, 58, 0.65);
+  border: 1px solid rgba(101, 201, 199, 0.35);
+  box-shadow: 0 0 12px rgba(90, 238, 214, 0.12);
+  transition: all 0.25s ease;
+}
+
+.login-baleia-ia-badge:hover {
+  border-color: rgba(101, 201, 199, 0.65);
+  box-shadow: 0 0 16px rgba(90, 238, 214, 0.28);
+  background: rgba(16, 39, 58, 0.85);
+}
+
+.baleia-ia-icon {
+  height: 100%;
+  max-height: 38px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================================
+   ÁREA PRINCIPAL E CARTÃO DE ACESSO CENTRALIZADO (Cap. 03, 35 e 46)
+   ========================================================================== */
+.login-page .login-wrapper {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background: transparent;
+}
+
+.login-card {
+  width: 480px;
+  max-width: calc(100vw - 32px);
+  background: rgba(16, 29, 46, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 32px 36px 0;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.logo-container {
+  width: auto;
+  max-width: 170px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0 auto 14px;
+  background: transparent;
+}
+
+.logo-container img,
+.login-card-baleia-logo,
+.login-card-nefro-shield {
+  position: static !important;
+  width: auto !important;
+  height: 100% !important;
+  max-height: 70px !important;
+  max-width: 170px !important;
+  object-fit: contain !important;
+  display: block !important;
+  mix-blend-mode: normal !important;
+  filter: drop-shadow(0 4px 16px rgba(64, 186, 171, 0.40));
+}
+
+.login-eyebrow {
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  font-weight: 700;
+  color: #40baab;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.login-header h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 6px 0 6px;
+  letter-spacing: -0.4px;
+}
+
+.login-header p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ==========================================================================
+   FORMULÁRIO, CAMPOS E SELETORES (Cap. 11 e 46)
+   ========================================================================== */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-group label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.input-group input,
+.login-env-select {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9px;
+  background: rgba(9, 18, 30, 0.75);
+  color: #f8fafc;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input-group input::placeholder {
+  color: #64748b;
+}
+
+.input-group input:focus,
+.login-env-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  background: rgba(9, 18, 30, 0.95);
+}
+
+.login-env-select option {
+  background: #0f1c2d;
+  color: #f8fafc;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 78px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: color 0.15s ease;
+}
+
+.password-toggle:hover {
+  color: #ffffff;
+}
+
+.password-toggle:focus-visible {
+  outline: 2px solid #3b82f6;
+}
+
+.alert-box {
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: #fca5a5;
+  background: rgba(220, 38, 38, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BOTÃO DE ENTRADA (Cap. 21, 48 e 68)
+   ========================================================================== */
+.login-card .btn-primary {
+  width: 100%;
+  min-height: 44px !important;
+}
+
+#root .login-card .btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+  border: 1px solid #1d4ed8;
+  font-weight: 700;
+  border-radius: 9px;
+  font-size: 14.5px;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.32);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+#root .login-card .btn-primary:hover:not(:disabled) {
+  background: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.42);
+}
+
+#root .login-card .btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.login-card .demo-button,
+.demo-description {
+  display: none !important;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #94a3b8;
+  padding: 14px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0 -36px;
+}
+
+.login-footer span {
+  color: #10b981;
+  margin-right: 5px;
+}
+
+.login-page-footer {
+  padding: 14px 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 11.5px;
+}
+
+.login-page-footer span {
+  margin: 0 10px;
+  color: #475569;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE E JANELA BAIXA (Cap. 03 e 28)
+   ========================================================================== */
+@media (min-width: 800px) and (max-height: 520px) {
+  .login-topbar {
+    min-height: 60px;
+    padding: 6px 3%;
+  }
+  .login-card {
+    width: 680px;
+    padding: 18px 28px 0;
+  }
+  .login-header {
+    margin-bottom: 12px;
+  }
+  .logo-container {
+    height: 54px;
+    margin-bottom: 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-topbar {
+    grid-template-columns: auto 1fr;
+    padding: 10px 16px;
+    gap: 8px;
+  }
+  .login-brand {
+    font-size: 20px;
+    justify-content: flex-end;
+  }
+  .login-topbar > span {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .login-page .login-wrapper {
+    padding: 20px 12px;
+  }
+  .login-card {
+    padding: 24px 20px 0;
+  }
+  .login-footer {
+    margin: 0 -20px;
+  }
+}

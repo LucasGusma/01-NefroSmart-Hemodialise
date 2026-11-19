@@ -1,0 +1,1137 @@
+/* ==========================================================================
+   ESTRUTURA AUTENTICADA, LATERAL (3 MODOS), CONTROLES E TEMAS (Manual FastPass v3.0)
+   ========================================================================== */
+
+.fp-authenticated-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100dvh;
+  background: var(--fp-bg);
+  color: var(--fp-text);
+}
+
+.fp-main-workspace {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  margin-left: 64px;
+  transition: margin-left 180ms ease;
+}
+
+.fp-authenticated-layout.sidebar-expanded .fp-main-workspace {
+  margin-left: clamp(264px, 21vw, 300px);
+}
+
+.fp-workspace-content {
+  flex: 1;
+  width: 100%;
+  padding: 12px clamp(16px, 2.5vw, 40px) 28px !important;
+}
+
+/* ==========================================================================
+   BARRA LATERAL FASTPASS (Capítulos 07, 08, 22, 43, 47, 49 e 56)
+   ========================================================================== */
+.fp-sidebar-shell {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 40;
+  width: 64px;
+  background: var(--fp-sidebar);
+  border-right: 1px solid var(--fp-divider);
+  display: flex;
+  flex-direction: column;
+  transition: width 180ms ease, box-shadow 180ms ease;
+  user-select: none;
+}
+
+.fp-sidebar-shell.is-open {
+  width: clamp(264px, 21vw, 300px);
+}
+
+.fp-sidebar-shell.mode-preview.is-open {
+  box-shadow: 8px 0 28px rgba(0, 0, 0, 0.25);
+}
+
+.fp-sidebar-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Topo da Lateral com Logo Oficial NefroSmart e Pontinho Discreto na Borda Externa (Cap. 22 e 47) */
+.fp-sidebar-brand-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 8px 8px;
+  min-height: 62px;
+  border-bottom: 1px solid var(--fp-divider);
+  position: relative;
+}
+
+.fp-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fp-sidebar-brand-symbol {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.fp-sidebar-brand-full {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.fp-sidebar-brand-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--fp-text);
+  line-height: 1.15;
+}
+
+.fp-sidebar-brand-title span {
+  color: var(--fp-link-icon);
+}
+
+.fp-sidebar-brand-sub {
+  font-size: 10.5px;
+  color: var(--fp-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pontinho discreto de 5px dentro de alvo 44x44px (Cap. 08 e 47) */
+.fp-sidebar-pin-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.fp-sidebar-pin-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--fp-text-secondary);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.fp-pin-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--fp-text-secondary);
+  transition: opacity 150ms ease;
+}
+
+.fp-pin-icon {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  color: var(--fp-link-icon);
+}
+
+.fp-sidebar-pin-btn:hover .fp-pin-dot,
+.fp-sidebar-pin-btn:focus-visible .fp-pin-dot {
+  opacity: 0;
+}
+
+.fp-sidebar-pin-btn:hover .fp-pin-icon,
+.fp-sidebar-pin-btn:focus-visible .fp-pin-icon {
+  opacity: 1;
+}
+
+.fp-sidebar-pin-btn:focus-visible {
+  outline: 2px solid var(--fp-link-icon);
+  outline-offset: 2px;
+}
+
+/* Menu dos 3 modos da lateral */
+.fp-sidebar-mode-menu {
+  position: fixed;
+  top: 56px;
+  left: 56px;
+  z-index: 90;
+  width: 235px;
+  background: var(--fp-panel);
+  border: 1px solid var(--fp-border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.32);
+}
+
+.fp-mode-menu-header {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fp-text-secondary);
+  padding: 6px 10px 4px;
+}
+
+.fp-mode-menu-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--fp-text);
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.fp-mode-menu-item:hover,
+.fp-mode-menu-item:focus-visible {
+  background: var(--fp-active-neutral);
+}
+
+.fp-mode-menu-item.is-selected {
+  background: var(--fp-active-neutral);
+}
+
+.fp-mode-item-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--fp-text);
+}
+
+.fp-mode-item-desc {
+  font-size: 11px;
+  color: var(--fp-text-secondary);
+}
+
+.fp-mode-check {
+  color: var(--fp-selection);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Navegação da Lateral: alvos 48x42px na recolhida, 38px min-height na expandida (Cap. 08) */
+.fp-sidebar-nav {
+  flex: 1;
+  padding: 8px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.fp-sidebar-group-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--fp-text-secondary);
+  padding: 6px 10px 4px;
+}
+
+.fp-sidebar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fp-sidebar-item {
+  width: 100%;
+  min-height: 42px;
+  border: none;
+  background: transparent;
+  color: var(--fp-text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+}
+
+.fp-sidebar-shell.is-rail .fp-sidebar-item {
+  width: 48px;
+  min-height: 42px;
+  padding: 0;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.fp-sidebar-item:hover,
+.fp-sidebar-item:focus-visible {
+  background: var(--fp-active-neutral);
+}
+
+.fp-sidebar-item.is-active {
+  background: var(--fp-active-neutral);
+  font-weight: 700;
+}
+
+.fp-sidebar-item.is-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--fp-link-icon);
+}
+
+/* Na lateral, todos os ícones pertencem à família azul (Cap. 05, 21 e 48) */
+.fp-sidebar-icon {
+  color: var(--fp-link-icon);
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fp-sidebar-label {
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--fp-text);
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Divisor recolhido: 28px x 1px; Divisor expandido: 100% x 1px com espaço de 14px (Cap. 08) */
+.fp-sidebar-divider {
+  height: 1px;
+  background: var(--fp-divider);
+  width: 28px;
+  margin: 8px auto;
+}
+
+.fp-sidebar-shell.is-open .fp-sidebar-divider {
+  width: calc(100% - 16px);
+  margin: 14px 8px 8px;
+}
+
+/* Rodapé da Lateral: Indicadores HOJE, TOTAL HISTÓRICO e ÚLT. + Saída (Cap. 26, 49 e 56) */
+.fp-sidebar-footer {
+  padding: 8px;
+  border-top: 1px solid var(--fp-divider);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fp-compact-indicators {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.fp-env-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--fp-field);
+  border: 1px solid var(--fp-border);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--fp-text);
+}
+
+.fp-env-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #10B981;
+}
+
+.fp-mini-stat {
+  width: 48px;
+  padding: 4px 2px;
+  border-radius: 7px;
+  background: var(--fp-field);
+  border: 1px solid var(--fp-border);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.fp-mini-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--fp-text-secondary);
+  text-transform: uppercase;
+}
+
+.fp-mini-value {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--fp-text);
+}
+
+/* 3 Cartões de Resumo Aprovados (Cap. 49 e 56): Azul #3B82F6, Verde #10B981/#16834A, Roxo #8B5CF6 */
+.fp-expanded-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fp-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.fp-summary-card {
+  background: var(--fp-field);
+  border: 1px solid var(--fp-border);
+  border-radius: 8px;
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fp-card-hoje {
+  border-top: 3px solid #3B82F6;
+}
+
+.fp-card-total {
+  border-top: 3px solid var(--fp-card-total-accent);
+}
+
+.fp-card-ultima {
+  border-top: 3px solid #8B5CF6;
+}
+
+.fp-summary-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--fp-text-secondary);
+}
+
+.fp-summary-sublabel {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--fp-link-icon);
+  margin-top: -1px;
+}
+
+.fp-summary-val {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--fp-text);
+}
+
+.fp-summary-val-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fp-text);
+}
+
+/* Botão Sair na Lateral: sempre vermelho semântico e sem preenchimento (Cap. 10, 21 e 48) */
+.fp-sidebar-logout-zone {
+  padding-top: 4px;
+  border-top: 1px solid var(--fp-divider);
+}
+
+.fp-sidebar-logout-btn {
+  width: 100%;
+  min-height: 40px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--fp-error-exit);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fp-sidebar-shell.is-open .fp-sidebar-logout-btn {
+  justify-content: flex-start;
+  border-color: rgba(230, 133, 145, 0.28);
+}
+
+.fp-sidebar-logout-btn:hover,
+.fp-sidebar-logout-btn:focus-visible {
+  background: rgba(180, 35, 56, 0.1);
+  color: var(--fp-error-exit);
+}
+
+.fp-logout-icon {
+  color: var(--fp-error-exit);
+}
+
+/* ==========================================================================
+   MICROINTERAÇÃO DE ÍCONES: ESCALA 1.45 EM 180MS SEM DESLOCAR ALVOS (Cap. 09, 23 e 48)
+   ========================================================================== */
+.fp-icon-slot,
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.fp-stroke-svg,
+.button-icon svg {
+  width: 17px;
+  height: 17px;
+  transform: scale(1);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: center center;
+}
+
+button:hover:not(:disabled) .fp-stroke-svg,
+button:focus-visible:not(:disabled) .fp-stroke-svg,
+#root .system-button:hover:not(:disabled) .button-icon svg,
+#root .system-button:focus-visible:not(:disabled) .button-icon svg {
+  transform: scale(1.45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fp-stroke-svg,
+  .button-icon svg,
+  .fp-sidebar-shell,
+  .fp-main-workspace {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   CABEÇALHO COMPACTO E MENU DE 3 PONTOS DE APARÊNCIA (Cap. 02, 04 e 45)
+   ========================================================================== */
+.fp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.fp-brand-titles h1 {
+  font-size: clamp(1.3rem, 1.8vw, 1.65rem);
+}
+
+.nefro-shield {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+.fp-header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.fp-user-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.fp-user-greeting {
+  font-size: 13px;
+  color: var(--fp-text);
+}
+
+.fp-master-badge {
+  background-color: var(--ds-ai-accent);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: 800;
+  font-size: 10.5px;
+  display: inline-block;
+  margin-left: 8px;
+  letter-spacing: 0.4px;
+}
+
+.fp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fp-theme-menu-container {
+  position: relative;
+}
+
+.fp-three-dots-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--fp-border);
+  background: var(--fp-field);
+  color: var(--fp-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.fp-three-dots-btn:hover,
+.fp-three-dots-btn:focus-visible {
+  background: var(--fp-active-neutral);
+  outline: 2px solid var(--fp-link-icon);
+}
+
+.fp-theme-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 80;
+  width: 250px;
+  background: var(--fp-panel);
+  border: 1px solid var(--fp-border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+}
+
+.fp-dropdown-section-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fp-text-secondary);
+  padding: 6px 10px 4px;
+}
+
+.fp-dropdown-divider {
+  height: 1px;
+  background: var(--fp-divider);
+  margin: 5px 4px;
+}
+
+.fp-dropdown-item {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--fp-text);
+  text-align: left;
+  padding: 7px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.fp-dropdown-item:hover,
+.fp-dropdown-item:focus-visible {
+  background: var(--fp-active-neutral);
+}
+
+.fp-dropdown-item.is-selected {
+  background: var(--fp-active-neutral);
+}
+
+.fp-dropdown-item-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--fp-text);
+}
+
+.fp-dropdown-item-desc {
+  font-size: 11px;
+  color: var(--fp-text-secondary);
+}
+
+.fp-dropdown-check {
+  color: var(--fp-selection);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   BOTÕES, ABAS, CORES SEMÂNTICAS DOS ÍCONES E REGRA 60-30-10 (Cap. 05, 10, 21, 48 e Anexo A)
+   ========================================================================== */
+#root .system-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: transparent;
+  color: var(--fp-text);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0 12px;
+  min-height: 38px;
+  box-shadow: none;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+#root .system-button:hover:not(:disabled) {
+  background: var(--fp-active-neutral);
+}
+
+#root .system-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#root .system-button:focus-visible {
+  outline: 2px solid var(--fp-link-icon);
+  outline-offset: 2px;
+}
+
+/* Cores semânticas do traço do ícone (Cap. 05 e 48) */
+#root .fp-btn-kind-add .button-icon,
+#root .fp-btn-kind-save .button-icon {
+  color: var(--fp-selection);
+}
+
+#root .fp-btn-kind-edit .button-icon,
+#root .fp-btn-kind-search .button-icon,
+#root .fp-btn-kind-next .button-icon,
+#root .fp-btn-kind-previous .button-icon {
+  color: var(--fp-link-icon);
+}
+
+#root .fp-btn-kind-signature .button-icon {
+  color: #8AB9D5;
+}
+.app-shell[data-theme="light"] #root .fp-btn-kind-signature .button-icon {
+  color: #276D8E;
+}
+
+#root .fp-btn-kind-delete .button-icon,
+#root .fp-btn-kind-logout .button-icon,
+#root .fp-btn-logout,
+#root .fp-btn-logout .button-icon {
+  color: var(--fp-error-exit) !important;
+}
+
+/* Regra de 1 CTA Primário Sólido por Contexto (Anexo A — Seção 03 e 05) */
+#root .fp-cta-primary {
+  background: var(--ds-primary);
+  color: var(--ds-primary-text);
+  border-color: var(--ds-primary);
+}
+#root .fp-cta-primary .button-icon {
+  color: #ffffff;
+}
+#root .fp-cta-primary:hover:not(:disabled) {
+  background: var(--ds-primary-hover);
+}
+
+#root .fp-cta-emerald {
+  background: var(--ds-success) !important;
+  color: var(--ds-success-text) !important;
+  border-color: var(--ds-success) !important;
+}
+#root .fp-cta-emerald .button-icon {
+  color: #ffffff !important;
+}
+#root .fp-cta-emerald:hover:not(:disabled) {
+  background: var(--ds-success-hover) !important;
+}
+
+.button-label {
+  padding: 8px 0 8px 6px;
+}
+
+#root .icon-only {
+  min-width: 38px;
+}
+.icon-only .button-label {
+  padding: 8px 0;
+}
+.icon-only svg {
+  color: var(--fp-link-icon);
+}
+
+/* Complemento de Referência Completa em Verde Discreto abaixo de Seleções Longas (Capítulo 11) */
+.fp-full-reference-hint {
+  margin-top: 4px;
+  font-size: 11.5px;
+  line-height: 1.35;
+  color: var(--fp-selection);
+  font-weight: 600;
+  word-break: break-word;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   TABELAS, FORMULÁRIOS, PESQUISA E MODAIS INTEGRADOS AO TEMA (Cap. 11, 12, 24 e 50)
+   ========================================================================== */
+.patients-panel,
+.fp-surface-panel {
+  background: var(--fp-panel) !important;
+  border: 1px solid var(--fp-border) !important;
+  border-radius: 12px;
+  box-shadow: none;
+  overflow: hidden;
+  color: var(--fp-text);
+}
+
+.patients-table-container {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.patients-table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: var(--fp-text);
+}
+
+.patients-table th,
+.patients-table td {
+  padding: 12px 12px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--fp-divider);
+  color: var(--fp-text);
+}
+
+.patients-table th:nth-child(1) { width: 17%; }
+.patients-table th:nth-child(2) { width: 23%; }
+.patients-table th:nth-child(3) { width: 7%; }
+.patients-table th:nth-child(4) { width: 17%; }
+.patients-table th:nth-child(5) { width: 15%; }
+.patients-table th:nth-child(6),
+.patients-table th:nth-child(7) { width: 10.5%; }
+
+.patients-table tbody tr {
+  background: var(--fp-panel) !important;
+}
+
+.patients-table tbody tr:nth-child(even) {
+  background: var(--fp-field) !important;
+}
+
+.patients-table tbody tr:hover {
+  background: var(--fp-active-neutral) !important;
+}
+
+.patient-identity strong,
+.fp-ref-link {
+  display: block;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--fp-link-icon);
+}
+
+.patient-identity small {
+  display: block;
+  color: var(--fp-text-secondary);
+  margin-top: 3px;
+  font-size: 11px;
+}
+
+.fp-status-active {
+  color: var(--fp-selection);
+  font-weight: 700;
+}
+
+.fp-status-inactive {
+  color: var(--fp-text-secondary);
+}
+
+.patient-search {
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 4px;
+  background: var(--fp-field);
+  border: 1px solid var(--fp-border);
+}
+
+.patient-search input {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: transparent;
+  color: var(--fp-text);
+  min-width: 0;
+  flex: 1;
+}
+
+.patient-search input:focus {
+  outline: none;
+}
+
+#root .patient-search .system-button {
+  border-radius: 8px;
+  min-width: 40px;
+  height: 40px;
+  margin-left: 4px;
+}
+
+/* Adaptação de inputs, selects e containers internos para os temas Escuro e Baleia (Cap. 50) */
+.app-shell[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]),
+.app-shell[data-theme="dark"] select,
+.app-shell[data-theme="dark"] textarea,
+.app-shell[data-theme="baleia"] input:not([type="checkbox"]):not([type="radio"]),
+.app-shell[data-theme="baleia"] select,
+.app-shell[data-theme="baleia"] textarea {
+  background-color: var(--fp-field) !important;
+  color: var(--fp-text) !important;
+  border-color: var(--fp-border) !important;
+}
+
+.app-shell[data-theme="dark"] label,
+.app-shell[data-theme="baleia"] label,
+.app-shell[data-theme="dark"] h2,
+.app-shell[data-theme="baleia"] h2,
+.app-shell[data-theme="dark"] h3,
+.app-shell[data-theme="baleia"] h3,
+.app-shell[data-theme="dark"] h4,
+.app-shell[data-theme="baleia"] h4 {
+  color: var(--fp-text) !important;
+}
+
+.app-shell[data-theme="dark"] .patient-signatures-page .bg-white,
+.app-shell[data-theme="baleia"] .patient-signatures-page .bg-white {
+  background-color: var(--fp-panel) !important;
+  color: var(--fp-text) !important;
+  border-color: var(--fp-border) !important;
+}
+
+.app-shell[data-theme="dark"] .patient-signatures-page .bg-\[\#f6faf9\],
+.app-shell[data-theme="dark"] .patient-signatures-page .bg-\[\#f0faf8\],
+.app-shell[data-theme="dark"] .patient-signatures-page .bg-\[\#f9fcfa\],
+.app-shell[data-theme="dark"] .patient-signatures-page .bg-\[\#f4f8f7\],
+.app-shell[data-theme="baleia"] .patient-signatures-page .bg-\[\#f6faf9\],
+.app-shell[data-theme="baleia"] .patient-signatures-page .bg-\[\#f0faf8\],
+.app-shell[data-theme="baleia"] .patient-signatures-page .bg-\[\#f9fcfa\],
+.app-shell[data-theme="baleia"] .patient-signatures-page .bg-\[\#f4f8f7\] {
+  background-color: var(--fp-field) !important;
+  color: var(--fp-text) !important;
+  border-color: var(--fp-border) !important;
+}
+
+/* Proteção expressa do Canvas de Assinatura (Capítulo 50, pág. 52: não alterar canvas de assinaturas) */
+
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 18px 8px;
+  font-size: 13px;
+  flex-wrap: wrap;
+  color: var(--fp-text);
+}
+
+.site-footer {
+  position: relative;
+  min-height: 84px;
+  background: var(--fp-sidebar);
+  color: var(--fp-text-secondary);
+  border-top: 1px solid var(--fp-divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 140px;
+  text-align: center;
+  gap: 20px;
+}
+
+.site-footer p {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: var(--fp-text);
+}
+
+.site-footer small {
+  font-size: 11px;
+  color: var(--fp-text-secondary);
+}
+
+.footer-logo {
+  position: absolute;
+  left: 24px;
+  width: auto;
+  max-width: 110px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.footer-logo img {
+  position: static;
+  width: auto;
+  height: 100%;
+  max-height: 48px;
+  max-width: 110px;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE E ACESSO EM TABLET / CELULAR (Capítulos 15, 24 e 28)
+   ========================================================================== */
+.fp-mobile-nav-trigger {
+  display: none;
+}
+
+.fp-mobile-backdrop {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .patients-panel {
+    padding: 12px;
+  }
+  .patients-table,
+  .patients-table tbody {
+    display: block;
+    width: 100%;
+  }
+  .patients-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .patients-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 1px solid var(--fp-border);
+    border-radius: 12px;
+  }
+  .patients-table td {
+    display: block;
+    padding: 6px 0;
+    width: 100%;
+  }
+  .patients-table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fp-link-icon);
+    margin-bottom: 2px;
+  }
+  .patients-table td.patient-identity {
+    order: -1;
+    padding-top: 0;
+    font-size: 15px;
+  }
+  .patients-table td[data-label="Ações"] {
+    order: 1;
+    border-bottom: 0;
+  }
+  .patient-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .fp-main-workspace,
+  .fp-authenticated-layout.sidebar-expanded .fp-main-workspace {
+    margin-left: 0;
+  }
+
+  .fp-sidebar-shell {
+    transform: translateX(-100%);
+    width: 280px !important;
+  }
+
+  .fp-sidebar-shell.is-mobile-open {
+    transform: translateX(0);
+    box-shadow: 12px 0 36px rgba(0, 0, 0, 0.45);
+  }
+
+  .fp-mobile-nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    z-index: 50;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: var(--ds-primary);
+    color: #ffffff;
+    border: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .fp-mobile-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .site-header {
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fp-header-right {
+    justify-content: space-between;
+  }
+
+  .site-footer {
+    padding: 16px;
+    flex-direction: column;
+  }
+
+  .footer-logo {
+    position: relative;
+    left: auto;
+  }
+}

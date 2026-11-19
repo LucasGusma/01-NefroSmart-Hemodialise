@@ -1,0 +1,81 @@
+AJUSTES DO FRONTEND — MANUAL FASTPASS 3.0
+Data: 17/11/2026
+Produto: NefroSmart. Perfil operacional (pacientes, escala TRS e assinaturas CFID).
+Referência: Manual_Frontend geral.pdf, edição 3.0, especialmente capítulos 44–57.
+
+ALTERAÇÕES
+- Tema aplicado a toda a árvore autenticada, incluindo modais externos ao layout.
+- Tokens semânticos em assinaturas, calendário, filtros, avisos, formulários e modais.
+- Botões discretos e ícones SVG de traço; estado selecionado dos filtros acessível.
+- Lateral com posições estáveis ao abrir a prévia; indicadores compactos preservados;
+  resumo por clique/teclado e fechamento por Escape. Menu móvel acessível por toque.
+- Dados ausentes e erro distintos de zero confirmado. Total histórico não utiliza
+  quantidade de pacientes como substituto. Contagens de pacientes têm rótulo próprio.
+- Tabelas preservam colunas e permitem rolagem horizontal. Calendário móvel mantém
+  largura legível, com rolagem. Data selecionada sem reticências.
+- Logos existentes ajustadas por object-fit, sem corte adicional.
+- Login independente dos temas e com composição adaptada a janela baixa.
+- Removida regra CSS global que forçava fundo branco em qualquer canvas.
+
+PRESERVAÇÃO
+Login: usuário MV, senha, visibilidade, ambiente PRD, entrar e demonstração.
+Navegação: pacientes/escala, assinaturas, cadastro por perfil, sincronização e saída.
+Pacientes: sete colunas (ações, paciente, ativo, turma, prestador, especialidade,
+convênio), filtros, paginação e campos de cadastro existentes.
+Assinaturas: calendário, presença, auditoria, turnos, CFID, tablet e verificações.
+Backend, consultas, permissões e regras clínicas não foram editados.
+
+VALIDAÇÃO
+17 testes passaram em 7 suítes, incluindo testes de preservação dos indicadores,
+zero/ausência/erro e abertura do resumo por teclado.
+Compilação de produção concluída usando unidade temporária Q, necessária porque
+Create React App/Webpack falhou com o caminho UNC direto.
+Browser: Edge headless, demonstração já existente do produto, dados fictícios.
+Viewports: 1366 x 768, 390 x 844, login em 900 x 480.
+Conferidos: Claro/Escuro/Baleia, cores dos modais nos três temas, recarga da preferência,
+três modos da lateral, formulário, assinaturas, menu móvel e saída da sessão.
+Na tela móvel de assinaturas: largura da página = 390px, sem overflow global.
+Confirmação de exclusão apenas aberta e cancelada; nenhuma exclusão executada.
+Nenhuma chamada de gravação em backend real foi usada na conferência visual.
+Avisos existentes do ambiente: Browserslist desatualizado e warnings de act nos testes.
+
+LIMITAÇÕES / PENDÊNCIAS
+- Usuário informou não possuir os assets oficiais do kit. Fundo/vídeo da baleia e
+  BaleIA animada não foram inventados. Login mantém a identidade existente; fidelidade
+  completa ao login de referência depende de receber os originais.
+- Total histórico de assinaturas permanece indisponível, explicitamente indicado.
+- Persistência de preferências é por pessoa neste navegador/origem, sem sincronização
+  entre dispositivos. Implementação existente mantida.
+- Sem homologação autenticada de produção, tablet físico ou gravação real de assinatura.
+- Conferência visual e contraste pontual não equivalem a auditoria WCAG completa.
+- Capturas de demonstração e resultados ficam na pasta de evidências local da tarefa.
+
+BACKUP E RESTAURAÇÃO
+scratch/frontend-manual-20261117 contém os arquivos anteriores e manifest.json com SHA256.
+alteracoes.diff registra as alterações para revisão. Conferir mudanças posteriores antes
+de restaurar qualquer arquivo; não copiar o backup inteiro sobre trabalho concorrente.
+Arquivos novos: src/manual-standard.css e src/components/FastPassSidebar.test.jsx.
+Depois de eventual restauração, recompilar frontend/build. O build antigo não foi
+arquivado; pode ser reproduzido a partir das fontes anteriores e dependências existentes.
+
+ARQUIVOS EXISTENTES ALTERADOS (relativos a frontend/src):
+- App.js
+- components/FastPassSidebar.jsx
+- components/NefroSmartHeader.jsx
+- interface.css
+- components/PatientSignaturesPage.jsx
+- components/MonthlyAttendanceCalendar.jsx
+- components/TabletSignatureModal.jsx
+- components/ViewSignatureModal.jsx
+- components/InstallTabletModal.jsx
+- components/SearchModal.jsx
+- components/ActiveSearchModal.jsx
+- components/ConfirmationModal.jsx
+- components/MonochromeIcon.jsx
+- components/SiteFooter.jsx
+
+CONFERÊNCIA DO BUILD FINAL
+Build final compilado com sucesso. Sem erros JavaScript no Edge de demonstração.
+Seguir o sistema conferido com preferências claro e escuro emuladas; escolha explícita Baleia permaneceu estável.
+Pacotes: main.f8a78616.js e main.39188e93.css.
+

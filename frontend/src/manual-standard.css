@@ -1,0 +1,289 @@
+/* Manual FastPass 3.0: tokens apply to the complete authenticated tree. */
+.app-shell { color-scheme: light; }
+.app-shell[data-theme="dark"], .app-shell[data-theme="baleia"] { color-scheme: dark; }
+.app-shell .fp-panel-bg { background: var(--fp-panel); }
+.app-shell .fp-field-bg { background: var(--fp-field); }
+.app-shell .fp-neutral-bg { background: var(--fp-active-neutral); }
+.app-shell .fp-selected-bg, .app-shell .fp-confirm-bg { background: var(--fp-confirm-bg); color: var(--fp-confirm-text); }
+.app-shell .fp-text { color: var(--fp-text); }
+.app-shell .fp-muted { color: var(--fp-text-secondary); }
+.app-shell .fp-selection-text { color: var(--fp-selection); }
+.app-shell .fp-border { border-color: var(--fp-border); }
+.app-shell .fp-warning-bg { background: color-mix(in srgb, var(--fp-warning) 13%, var(--fp-panel)); color: var(--fp-warning); }
+.app-shell .fp-warning-text { color: var(--fp-warning); }
+.app-shell .fp-error-bg { background: color-mix(in srgb, var(--fp-error-exit) 12%, var(--fp-panel)); color: var(--fp-error-exit); }
+.app-shell .fp-error-text { color: var(--fp-error-exit); }
+.app-shell :is(input, select, textarea) { background: var(--fp-field); color: var(--fp-text); border-color: var(--fp-border); }
+.app-shell :is(input, textarea)::placeholder { color: var(--fp-text-secondary); opacity: 1; }
+.app-shell :is(button, input, select, textarea, [tabindex]):focus-visible { outline: 2px solid var(--fp-link-icon); outline-offset: 3px; }
+.app-shell input[type=checkbox], .app-shell input[type=radio] { accent-color: var(--fp-selection); }
+.app-shell .patient-search:focus-within { outline: 2px solid var(--fp-link-icon); outline-offset: 2px; }
+.app-shell .fp-workspace-content { padding-top: 4px !important; }
+.site-header { flex-wrap: wrap; }
+.fp-header-left, .site-brand { min-width: 0; }
+.fp-brand-titles { min-width: 0; }
+.fp-user-meta { overflow-wrap: anywhere; }
+.fp-theme-dropdown { max-width: calc(100vw - 32px); max-height: calc(100dvh - 100px); overflow-y: auto; }
+.fp-three-dots-btn { width: 44px; height: 44px; background: transparent; border-color: transparent; }
+.fp-sidebar-pin-wrapper { position: absolute; top: 9px; right: -22px; z-index: 2; }
+.fp-sidebar-pin-btn { background: var(--fp-sidebar); }
+.fp-sidebar-panel { overflow: visible; min-height: 0; }
+.fp-sidebar-brand-bar { flex-shrink: 0; height: 72px; padding-right: 22px; }
+.fp-sidebar-brand-symbol { margin-left: 0; }
+.fp-sidebar-brand-sub { white-space: normal; }
+.fp-sidebar-nav { overflow-y: auto; overflow-x: hidden; min-height: 120px; }
+.fp-sidebar-shell { transition: box-shadow 180ms ease; }
+.fp-sidebar-item, .fp-sidebar-shell.is-rail .fp-sidebar-item { width: 100%; min-height: 56px; padding: 6px 12px; justify-content: flex-start; margin: 0; }
+.fp-sidebar-label { min-width: 0; width: 190px; flex-shrink: 0; }
+.fp-sidebar-group-title { height: 30px; white-space: nowrap; }
+.fp-sidebar-shell.is-rail .fp-sidebar-group-title, .fp-sidebar-shell.is-rail .fp-sidebar-label { visibility: hidden; }
+.fp-sidebar-divider, .fp-sidebar-shell.is-open .fp-sidebar-divider { margin: 8px auto; }
+.fp-sidebar-shell.is-open .fp-sidebar-divider { width: calc(100% - 16px); }
+.fp-sidebar-footer { flex-shrink: 0; position: relative; }
+.fp-sidebar-logout-btn, .fp-sidebar-shell.is-open .fp-sidebar-logout-btn { justify-content: flex-start; padding-left: 14px; border-color: transparent; }
+.fp-sidebar-shell.mode-preview.is-open .fp-sidebar-stats-area, .fp-sidebar-shell.mode-collapsed.is-open .fp-sidebar-stats-area { min-height: 121px; }
+.fp-sidebar-shell.mode-preview.is-open .fp-expanded-indicators, .fp-sidebar-shell.mode-collapsed.is-open .fp-expanded-indicators { position: absolute; left: 64px; bottom: 64px; width: 208px; padding: 10px; background: var(--fp-sidebar); border: 1px solid var(--fp-border); border-radius: 10px; }
+.fp-sidebar-shell.mode-preview.is-open .fp-compact-indicators { display: flex; }
+.fp-summary-note { color: var(--fp-text-secondary); font-size: 11px; line-height: 1.5; }
+.fp-summary-error { color: var(--fp-error-exit); }
+.fp-sidebar-stats-area { cursor: pointer; }
+#root .app-shell .system-button, .app-shell .patient-signatures-page button:not(.fp-calendar-day) { background: transparent; color: var(--fp-text); border-color: transparent; box-shadow: none; min-height: 38px; }
+#root .app-shell .system-button:hover:not(:disabled), .app-shell .patient-signatures-page button:hover:not(:disabled) { background: var(--fp-active-neutral); }
+#root .app-shell .system-button .button-icon { color: var(--fp-link-icon); }
+#root .app-shell :is(.fp-btn-kind-add,.fp-btn-kind-save) .button-icon { color: var(--fp-selection); }
+#root .app-shell :is(.fp-btn-kind-delete,.fp-btn-kind-logout) .button-icon { color: var(--fp-error-exit); }
+.app-shell .patient-signatures-page button[aria-pressed="true"] { border-bottom: 2px solid var(--fp-selection); border-radius: 4px; }
+.app-shell .patient-signatures-page header { background: var(--fp-panel); color: var(--fp-text); border-color: var(--fp-border); }
+.app-shell .fp-modal-overlay { padding: 16px; }
+.app-shell .fp-modal-overlay > div { max-height: calc(100dvh - 32px); overflow-y: auto; min-width: 0; }
+.app-shell .fp-modal-overlay main { min-height: 0; }
+.app-shell .fp-modal-overlay :is(header,footer) { background: var(--fp-panel); border-color: var(--fp-border); }
+.fp-alert-success { background: var(--fp-confirm-bg); color: var(--fp-confirm-text); }
+.fp-alert-error { background: color-mix(in srgb, var(--fp-error-exit) 12%, var(--fp-panel)); color: var(--fp-error-exit); }
+.fp-table-hint { padding: 8px 12px; margin: 0; color: var(--fp-text-secondary); font-size: 12px; border-bottom: 1px solid var(--fp-divider); }
+.app-shell .patients-table { min-width: 1020px; display: table; table-layout: auto; }
+.app-shell .patients-table thead { display: table-header-group; position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+.app-shell .patients-table tbody { display: table-row-group; }
+.app-shell .patients-table tbody tr { display: table-row; }
+.app-shell .patients-table td { display: table-cell; width: auto; overflow-wrap: normal; padding: 12px; }
+.app-shell .patients-table td::before { content: none; }
+.app-shell .patients-table td:first-child { min-width: 180px; }
+.app-shell .patients-table td:nth-child(2) { min-width: 220px; }
+.app-shell .patient-identity small { white-space: nowrap; }
+.app-shell .patients-panel { padding: 0; }
+@media (max-width: 768px) {
+  .fp-sidebar-shell:not(.is-mobile-open) { visibility: hidden; }
+  .fp-sidebar-shell.is-mobile-open .fp-expanded-indicators { position: static; width: auto; padding: 0; border: 0; }
+  .fp-sidebar-shell.is-mobile-open .fp-sidebar-label, .fp-sidebar-shell.is-mobile-open .fp-sidebar-group-title { visibility: visible; }
+  .fp-mobile-nav-trigger { background: var(--fp-panel); color: var(--fp-link-icon); border: 1px solid var(--fp-border); min-height: 44px; }
+  .site-footer { padding-bottom: 76px; }
+  .fp-header-left { gap: 10px; flex-wrap: wrap; }
+  .fp-workspace-content { padding-inline: 16px !important; }
+  .app-shell form { padding: 12px; }
+}
+@media (max-height: 560px) {
+  .fp-sidebar-panel { overflow-y: auto; overflow-x: hidden; }
+  .fp-sidebar-nav { flex-shrink: 0; overflow: visible; }
+  .fp-sidebar-pin-wrapper { right: 0; }
+  .fp-sidebar-shell.is-rail .fp-sidebar-brand-symbol { width: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .app-shell, .app-shell * { transition-duration: 0s !important; animation-duration: 0s !important; } }
+/* Existing login identity stays independent until official whale/BaleIA assets are supplied. */
+.login-page .login-card { width: min(520px, calc(100vw - 32px)); }
+.login-page .login-form { min-width: 0; }
+@media (min-width: 800px) and (max-height: 600px) {
+  .login-page .login-topbar { min-height: 54px; padding-block: 4px; }
+  .login-page .login-topbar .hospital-logo { height: 48px; }
+  .login-page .login-wrapper { padding: 12px 16px; }
+  .login-page .login-card { width: 760px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 8px 28px; padding: 20px 28px; }
+  .login-page .login-header { grid-row: span 2; align-self: center; margin: 0; }
+  .login-page .login-form { gap: 8px; grid-column: 2; grid-row: 1 / span 3; }
+  .login-page .demo-button, .login-page .demo-description, .login-page .login-footer { grid-column: 1; margin: 0; }
+  .login-page .login-footer { padding: 8px; }
+}
+
+.app-shell .fp-calendar-selected { outline: 2px solid var(--fp-selection); outline-offset: -2px; }
+.app-shell .fp-calendar-day:hover:not(:disabled) { background: var(--fp-active-neutral); }
+.app-shell .fp-calendar-day:disabled { opacity: .55; }
+.app-shell .patient-signatures-page .fp-selection-text { color: var(--fp-selection); }
+.app-shell .patient-signatures-page .fp-warning-text { color: var(--fp-warning); }
+.app-shell .patient-signatures-page .fp-error-text { color: var(--fp-error-exit); }
+.app-shell .patient-signatures-page .fp-muted { color: var(--fp-text-secondary); }
+
+.fp-semantic-icon { color: var(--fp-link-icon); margin-right: 6px; vertical-align: middle; }
+.fp-warning-bg .fp-semantic-icon { color: var(--fp-warning); }
+.fp-error-bg .fp-semantic-icon { color: var(--fp-error-exit); }
+.fp-confirm-bg .fp-semantic-icon { color: var(--fp-selection); }
+.app-shell .patient-signatures-page .fp-calendar-day { min-width: 0; }
+
+/* Logos com proporção natural e preenchimento limpo */
+.hospital-logo img, .login-topbar .hospital-logo img, .footer-logo img { position: static; width: auto; height: 100%; max-width: 100%; object-fit: contain; }
+.hospital-logo, .login-topbar .hospital-logo, .footer-logo { padding: 0; }
+.fp-main-workspace { transition: none; }
+.fp-calendar-scroll { overflow-x: auto; }
+.fp-calendar-scroll > .grid { min-width: 630px; }
+.fp-calendar-scroll .fp-calendar-day { min-width: 0; }
+.fp-calendar-day .truncate { white-space: normal; overflow: visible; text-overflow: clip; }
+.fp-date-value { white-space: nowrap; font-size: clamp(.85rem, 2vw, 1.125rem); }
+.patient-signatures-page table { min-width: 900px; }
+.app-shell .patient-signatures-page thead tr { background: var(--fp-field); }
+.app-shell .patient-signatures-page tr:hover { background: var(--fp-active-neutral); }
+@media (max-width: 768px) { .fp-main-workspace { margin-left: 0 !important; } }
+.fp-sidebar-shell.mode-preview .fp-compact-indicators, .fp-sidebar-shell.mode-collapsed .fp-compact-indicators { width: 48px; align-items: center; }
+
+/* Marca oficial transparente enviada em 17/11/2026:
+   Sem caixa de fundo sólida (#40baab), sem recorte por coordenadas negativas,
+   exibição nítida com proporção preservada (object-fit: contain). */
+.hospital-logo,
+.hospital-header-logo,
+.login-topbar .hospital-logo {
+  width: auto;
+  max-width: 140px;
+  height: 52px;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+.footer-logo {
+  position: absolute;
+  left: 24px;
+  width: auto;
+  max-width: 130px;
+  height: 48px;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.site-footer {
+  min-height: 84px;
+}
+.hospital-logo img,
+.hospital-header-logo img,
+.login-topbar .hospital-logo img,
+.footer-logo img {
+  display: block !important;
+  position: static !important;
+  width: auto !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  mix-blend-mode: normal !important;
+  background: transparent !important;
+}
+
+.logo-light {
+  display: block !important;
+}
+.logo-dark {
+  display: none !important;
+}
+[data-theme='dark'] .logo-light,
+[data-theme='baleia'] .logo-light {
+  display: none !important;
+}
+[data-theme='dark'] .logo-dark,
+[data-theme='baleia'] .logo-dark {
+  display: block !important;
+}
+
+@media (min-width: 800px) and (max-height: 600px) {
+  .login-topbar .hospital-logo { height: 46px; max-width: 110px; }
+}
+
+/* ==========================================================================
+   MODAL DE ASSINATURA EM TABLET (Diferenciação Visual: Escuro para Escrever / Claro Estático)
+   Nos layouts e temas azulados (Baleia / Escuro):
+   - Áreas estáticas onde NÃO precisa escrever: tom de azul um pouco mais claro (#1d3654)
+   - Áreas de digitação e escrita onde PRECISA escrever: tom de azul um pouco mais escuro (#0b1624)
+   ========================================================================== */
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-card-static,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-card-static {
+  background-color: #1d3654 !important;
+  border-color: #2e537e !important;
+  color: #ffffff !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-card-static :is(label, span:not(.tsm-dialisador-badge):not(.tsm-subtle-tag), strong, em, small),
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-card-static :is(label, span:not(.tsm-dialisador-badge):not(.tsm-subtle-tag), strong, em, small) {
+  color: #f1f5f9 !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-badge-reuso,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-badge-reuso {
+  background-color: #13273e !important;
+  color: #7dd3fc !important;
+  border-color: #2b527d !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-badge-virgem,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-badge-virgem {
+  background-color: #064e3b !important;
+  color: #6ee7b7 !important;
+  border-color: #059669 !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-card-static .tsm-subtle-tag,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-card-static .tsm-subtle-tag {
+  background-color: #132438 !important;
+  color: #5eead4 !important;
+  border-color: #2e537e !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-inner-notice,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-inner-notice {
+  background-color: #13273e !important;
+  color: #99f6e4 !important;
+  border-color: #2e537e !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-cfid-declaration,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-cfid-declaration {
+  background-color: #17384e !important;
+  border-color: #295b7f !important;
+  color: #f1f5f9 !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-cfid-declaration :is(div, span, strong),
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-cfid-declaration :is(div, span, strong) {
+  color: #f1f5f9 !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-field-writable,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-field-writable,
+.app-shell[data-theme="baleia"] .tablet-signature-modal :is(input, select, textarea):not([type="checkbox"]):not([type="radio"]),
+.app-shell[data-theme="dark"] .tablet-signature-modal :is(input, select, textarea):not([type="checkbox"]):not([type="radio"]) {
+  background-color: #0b1624 !important;
+  border-color: #264366 !important;
+  color: #ffffff !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal :is(input, select, textarea):disabled,
+.app-shell[data-theme="dark"] .tablet-signature-modal :is(input, select, textarea):disabled {
+  background-color: #142336 !important;
+  color: #94a3b8 !important;
+  border-color: #253e5e !important;
+  opacity: 0.7 !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-canvas-wrapper,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-canvas-wrapper {
+  background-color: #0b1624 !important;
+  border-color: #2e537e !important;
+}
+
+.app-shell[data-theme="baleia"] .tablet-signature-modal .tsm-canvas-wrapper .fp-selection-text,
+.app-shell[data-theme="dark"] .tablet-signature-modal .tsm-canvas-wrapper .fp-selection-text {
+  color: #5eead4 !important;
+}
+
